@@ -1,0 +1,57 @@
+/*
+ * Task 1: Basic Calculator
+ * Performs addition, subtraction, multiplication and division
+ * using a switch-case for operation selection.
+ */
+#include <stdio.h>
+
+static void clear_input(void) {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF) { }
+}
+
+int main(void) {
+    char op;
+    double a, b;
+    char again = 'y';
+
+    printf("=== Simple Calculator ===\n");
+
+    while (again == 'y' || again == 'Y') {
+        printf("\nEnter an operator (+, -, *, /): ");
+        if (scanf(" %c", &op) != 1) break;
+
+        printf("Enter two numbers: ");
+        if (scanf("%lf %lf", &a, &b) != 2) {
+            printf("Invalid input. Please enter numbers only.\n");
+            clear_input();
+            continue;
+        }
+
+        switch (op) {
+            case '+':
+                printf("%.2f + %.2f = %.2f\n", a, b, a + b);
+                break;
+            case '-':
+                printf("%.2f - %.2f = %.2f\n", a, b, a - b);
+                break;
+            case '*':
+                printf("%.2f * %.2f = %.2f\n", a, b, a * b);
+                break;
+            case '/':
+                if (b == 0)
+                    printf("Error: division by zero is not allowed.\n");
+                else
+                    printf("%.2f / %.2f = %.2f\n", a, b, a / b);
+                break;
+            default:
+                printf("Error: invalid operator '%c'.\n", op);
+        }
+
+        printf("Calculate again? (y/n): ");
+        if (scanf(" %c", &again) != 1) break;
+    }
+
+    printf("Goodbye!\n");
+    return 0;
+}
